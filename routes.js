@@ -1,0 +1,20 @@
+const express = require('express')
+const { registerController, loginController } = require('./controller/userController')
+const { addTestimonialController } = require('./controller/testimonialController')
+const { getAllrecipesController, viewRecipeController, getRecipeByCuisineController } = require('./controller/recipeController')
+const authorizationMiddleware = require('./middleware/authenticationMiddleware')
+const { addRecipeToCollectionController, getUserRecipeCollectionController, deleteUserRecipeController } = require('./controller/savedRecipeController')
+
+const router = new express.Router()
+router.post('/register',registerController)
+router.post('/login',loginController)
+router.post('/add/testimonials',addTestimonialController)
+router.get('/all-recipes',getAllrecipesController)
+router.get('/viewRecipe/:id',authorizationMiddleware,viewRecipeController)
+router.get('/related/recipes/:id',getRecipeByCuisineController)
+router.post('/saveRecipe/:recipeID',authorizationMiddleware,addRecipeToCollectionController)
+router.get('/getSavedRecipes',authorizationMiddleware,getUserRecipeCollectionController)
+router.delete('/deleteSavedRecipe/:itemID',authorizationMiddleware,deleteUserRecipeController)
+router.post('/addDownlo')
+
+module.exports = router
